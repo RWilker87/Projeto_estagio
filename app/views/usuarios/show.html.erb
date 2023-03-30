@@ -1,10 +1,30 @@
 <p style="color: green"><%= notice %></p>
 
-<%= render @usuario %>
+<!-- app/views/usuarios/show.html.erb -->
+<h1><%= @usuario.nome %></h1>
+
+<p><strong>Email:</strong> <%= @usuario.email %></p>
+<p><strong>Data de nascimento:</strong> <%= @usuario.data_de_nascimento %></p>
+<p><strong>Gênero:</strong> <%= @usuario.genero %></p>
+
+<h2>Nome das Playlists:</h2>
+<ul>
+  <% @playlists.each do |playlist| %>
+    <li><%= playlist.nome %></li>
+  <% end %>
+</ul>
+
 
 <div>
   <%= link_to "Edit this usuario", edit_usuario_path(@usuario) %> |
   <%= link_to "Back to usuarios", usuarios_path %>
 
+  <div class="actions">
+    <%= link_to "Criar nova playlist", new_usuario_playlist_path(@usuario), class: "button is-primary" %>
+  </div>
+
   <%= button_to "Destroy this usuario", @usuario, method: :delete %>
 </div>
+
+
+

@@ -3,8 +3,10 @@ class PlaylistsController < ApplicationController
 
   # GET /playlists or /playlists.json
   def index
-    @playlists = Playlist.all
+    @usuario = Usuario.find(params[:usuario_id])
+    @playlists = @usuario.playlists
   end
+
 
   # GET /playlists/1 or /playlists/1.json
   def show
@@ -12,7 +14,8 @@ class PlaylistsController < ApplicationController
 
   # GET /playlists/new
   def new
-    @playlist = Playlist.new
+    @usuario = Usuario.find(params[:usuario_id])
+    @playlist = @usuario.playlists.build
   end
 
   # GET /playlists/1/edit
@@ -21,16 +24,13 @@ class PlaylistsController < ApplicationController
 
   # POST /playlists or /playlists.json
   def create
-    @playlist = Playlist.new(playlist_params)
+    @usuario = Usuario.find(params[:usuario_id])
+    @playlist = @usuario.playlists.build(playlist_params)
 
-    respond_to do |format|
-      if @playlist.save
-        format.html { redirect_to playlist_url(@playlist), notice: "Playlist was successfully created." }
-        format.json { render :show, status: :created, location: @playlist }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @playlist.errors, status: :unprocessable_entity }
-      end
+    if @playlist.save
+      redirect_to @usuario, notice: "Playlist criada com sucesso!"
+    else
+      render :new
     end
   end
 
@@ -64,7 +64,7 @@ class PlaylistsController < ApplicationController
     end
 
     # Only allow a list of trusted parameters through.
-    def playlist_params
-      params.require(:playlist).permit(:nome, :descricao)
-    end
+  def playlist_params
+    params.require(:playlist).permit(:nome, :descricao, :usuario_id)
+  end
 end

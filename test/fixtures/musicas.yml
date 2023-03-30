@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  nome: MyString
+  artista: MyString
+  album: MyString
+  duracao: 1
+  spotify_id: MyString
+
+two:
+  nome: MyString
+  artista: MyString
+  album: MyString
+  duracao: 1
+  spotify_id: MyString
